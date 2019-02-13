@@ -27,27 +27,20 @@ def main():
         sys.exit(2)
 
     args = parser.parse_args()
-    to_address = args.to_address
-    from_address = args.from_address
-    user_name = args.user_name
-    user_pass = args.user_pass
-    server_address = args.server_address
-    message_subject = args.message_subject
-    enable_tls = args.T
-    message_body = args.message_body
 
     # Message body uses HTML, will change options to allow for plaintext at later point.
-    msg = MIMEText(message_body, 'html')
-    msg['Subject'] = message_subject
-    msg['From'] = from_address
-    msg['To'] = to_address
+    msg = MIMEText(args.message_body, 'html')
+    msg['Subject'] = args.message_subject
+    msg['From'] = args.from_address
+    msg['To'] = args.to_address
     # We must set date timestamp, otherwise mail server/mail client may assume its own timestamp.
     msg['Date'] = formatdate(localtime=True)
-    s = smtplib.SMTP(server_address, 587)
-    if enable_tls:
+    s = smtplib.SMTP(args.server_address, 587)
+    # check if TLS enabled by -T
+    if args.T:
         s.starttls()
-    s.login(user=user_name, password=user_pass)
-    s.sendmail(from_address, to_address, msg.as_string())
+    s.login(user=args.user_name, password=args.user_pass)
+    s.sendmail(args.from_address, args.to_address, msg.as_string())
 
 
 if __name__ == "__main__":
