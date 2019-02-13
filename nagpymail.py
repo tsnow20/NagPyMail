@@ -17,8 +17,8 @@ def main():
                                    action="store", dest="user_name")
         required_args.add_argument("-p", help="User password to be used with mail server username", required=True,
                                    action="store", dest="user_pass")
-        required_args.add_argument("-s", help="Mail server address", required=True, action="store",
-                                   dest="server_address")
+        required_args.add_argument("-s", help="Mail server address (can use host:port format to define port settings; "
+                                              "default port 587)", required=True, action="store", dest="server_address")
         required_args.add_argument("-t", help="E-mail message subject line", required=True, action="store",
                                    dest="message_subject")
         required_args.add_argument("-m", help="E-mail message body", required=True, action="store", dest="message_body")
@@ -35,7 +35,11 @@ def main():
     msg['To'] = args.to_address
     # We must set date timestamp, otherwise mail server/mail client may assume its own timestamp.
     msg['Date'] = formatdate(localtime=True)
-    s = smtplib.SMTP(args.server_address, 587)
+    if ":" in args.server_address:
+        server, port = args.server_address.split(':')
+        s = smtplib.SMTP(server, port)
+    else:
+        s = smtplib.SMTP(args.server_address, 587)
     # check if TLS enabled by -T
     if args.T:
         s.starttls()
