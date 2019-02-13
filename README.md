@@ -1,10 +1,10 @@
-#Nagpymail
-##About
+# Nagpymail
+## About
 A simple python script intended for use with Nagios (i.e. notify-by-email). It was written to bypass older
 legacy mail applications having issues with TLS/SSL, with no alternatives available.
-##Install
+## Install
 Pretty simple--Put it in an appropriate directory, such as /usr/local/bin, mark as executable, and you're done. 
-##Usage
+## Usage
 The following options are available currently:  
 -d Destination Address (Required)  
 -f From address (Required)  
@@ -14,7 +14,7 @@ The following options are available currently:
 -t Message subject (Required)  
 -T Enable TLS (Optional; Default: disabled)  
 -m Message body (Required) 
-##Usage in Nagios
+## Usage in Nagios
 As an example, here is the original notify-host-by-email command definition.
 
     define command{
