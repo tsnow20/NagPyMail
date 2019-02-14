@@ -5,15 +5,23 @@ legacy mail applications having issues with TLS/SSL, with no alternatives availa
 ## Install
 Pretty simple--Put it in an appropriate directory, such as /usr/local/bin, mark as executable, and you're done. 
 ## Usage
-The following options are available currently:  
--d Destination Address (Required)  
--f From address (Required)  
--u E-mail username (Required)  
--p E-mail user password (Required)  
--s Mail server address (Required)  
--t Message subject (Required)  
--T Enable TLS (Optional; Default: disabled)  
--m Message body (Required) 
+    usage: nagpymail.py [-h] [-T] -d TO_ADDRESS -f FROM_ADDRESS -u USER_NAME -p
+                        USER_PASS -s SERVER_ADDRESS -t MESSAGE_SUBJECT -m
+                        MESSAGE_BODY
+    
+    optional arguments:
+      -h, --help          show this help message and exit
+      -T                  Enable TLS
+    
+    required arguments:
+      -d TO_ADDRESS       Destination address
+      -f FROM_ADDRESS     From address
+      -u USER_NAME        Username to be used for mail server login
+      -p USER_PASS        User password to be used with mail server username
+      -s SERVER_ADDRESS   Mail server address (can use host:port format to define
+                          port settings; default port 587)
+      -t MESSAGE_SUBJECT  E-mail message subject line
+      -m MESSAGE_BODY     E-mail message body
 ## Usage in Nagios
 As an example, here is the original notify-host-by-email command definition.
 
